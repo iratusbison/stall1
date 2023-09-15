@@ -34,6 +34,10 @@
                                     <td>{{ item.item_stock }}</td>
                                 </tr>
                                 <tr>
+                                    <th>total revenue</th>
+                                    <td>{{ revenue|floatformat:2 }}</td>
+                                </tr>
+                                <tr>
                                     <th>Price</th>
                                     <td>Rp {{ item.item_price|floatformat:0|intcomma }}</td>
                                 </tr>

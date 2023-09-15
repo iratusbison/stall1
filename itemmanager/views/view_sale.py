@@ -110,10 +110,12 @@ class SaleDetailView(TemplateView):
     def get_context_data(self, *args, **kwargs):
         sale = kwargs.get('sale')
         saleitems = SaleItem.objects.filter(sale=sale).order_by('item__item_name')
+        #total_revenue = sale.revenue
         context = {
             'sale': sale,
             'saleitems': saleitems,
-            'active_tab': 'sale'
+            'active_tab': 'sale',
+            #'total_revenue': total_revenue,
         }
         return context
 

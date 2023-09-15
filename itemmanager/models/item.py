@@ -41,6 +41,15 @@ class Item(models.Model):
         self.stock_quantity = total_restock
         self.save()
 
+    def total_revenue(self):
+        from itemmanager.models.saleitem import SaleItem
+        from itemmanager.models.restockitem import RestockItem
+        total_sales = SaleItem.objects.sale_total_amount(item=self)
+        total_restocks = RestockItem.objects.restock_total_amount(item=self)
+        total_stock_reduced = total_restocks - total_sales
+        revenue = total_stock_reduced * self.item_price
+        return revenue
+
 
 
     

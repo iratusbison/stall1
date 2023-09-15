@@ -56,10 +56,12 @@ class ItemDetailView(TemplateView):
         item = kwargs.get('item')
         restocks = RestockItem.objects.filter(
             item=item).order_by('-restock__date_created')
+        revenue = item.total_revenue()
         context = {
             'item': item,
             'restock': restocks[0] if restocks else None,
-            'active_tab': 'item'
+            'active_tab': 'item' ,
+            'revenue' : revenue
         }
         return context
 
