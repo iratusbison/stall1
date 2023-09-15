@@ -38,11 +38,7 @@
                         Users
                     </h4>
                 </div>
-                <div class="row">
-                    <a class="btn-small white waves-effect black-text" style="margin-left: 1rem" href="{% url 'user_new' %}">
-                        + Add user
-                    </a>
-                </div>
+               
                 <table class="bordered highlight">
                     <tr>
                         <th>Name</th>
@@ -51,7 +47,7 @@
                         <th style="width: 30%">Email</th>
                     </tr>
                     {% for ts_user in ts_users %}
-                    <tr onclick="location.href=`{% url 'user_detail' pk=ts_user.id %}`" style="cursor:pointer">
+                    
                         <td>
                             <span class="waves-effect waves-block waves-light profile-button">
                                 <span class="avatar-status" style="display: flex; align-items: center;">

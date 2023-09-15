@@ -27,7 +27,7 @@ def admin_required(function=None):
         return decorator
     else:
         return decorator(function)
-    '''
+'''
 from functools import wraps
 from django.http import HttpResponseNotFound, HttpResponseForbidden, Http404
 from baseapp.models import TSUser

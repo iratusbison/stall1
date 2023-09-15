@@ -44,7 +44,7 @@
                         <tr onclick="location.href=`{% url 'item_detail' pk=item.pk %}`" style="cursor:pointer">
                             <td>{{ forloop.counter|add:min_item_index }}</td>
                             <td>{{ item.item_name }}</td>
-                            <td>{{ item.stock_quantity }}</td>
+                            <td>{{ item.item_stock }}</td>
                             <td>Rp {{ item.item_price|floatformat:0|intcomma }}</td>
                         </tr>
                     {% empty %}
