@@ -52,7 +52,7 @@ table.clean tr {
             <h1 class="logo-wrapper">
               <a href="{% url 'dashboard' %}" class="brand-logo darken-1">
                 <img src="{% static 'images/logo.png' %}" alt="technostall-logo">
-                <span class="logo-text hide-on-med-and-down heading">TECHNOSTALL</span>
+                <span class="logo-text hide-on-med-and-down heading">STALL</span>
               </a>
             </h1>
           </li>
@@ -150,12 +150,27 @@ table.clean tr {
             {% endif %}
           </ul>
         </li>
-        <!-- <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;">
+        {% if request.session.ts_user.is_admin %}
+        <li class="bold">
+          <a href="{% url 'sale_list_with_total' %}" class="waves-effect ">
+                <i class="fa fa-dollar-sign" style="font-size: 1rem;"></i>
+                <span class="nav-text">total revenue</span>
+              </a>
+        </li>
+        {% endif %}
+        <li>
+          <a href="{% url 'logout' %}" class="waves-effect waves-block waves-light profile-button" title="Logout">
+            <span class="nav-text"> exit
+              <i class="material-icons">exit_to_app </i>
+            </span>
+          </a>
+        </li>
+         <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;">
           <div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div>
         </div>
         <div class="ps-scrollbar-y-rail" style="top: 0px; height: 529.333px; right: 3px;">
           <div class="ps-scrollbar-y" style="top: 0px; height: 446px;"></div>
-        </div> -->
+        </div> 
       </ul>
       <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only amber darken-4">
         <i class="material-icons">menu</i>

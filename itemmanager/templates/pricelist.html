@@ -44,7 +44,15 @@
                         <tr onclick="location.href=`{% url 'item_detail' pk=item.pk %}`" style="cursor:pointer">
                             <td>{{ forloop.counter|add:min_item_index }}</td>
                             <td>{{ item.item_name }}</td>
-                            <td>{{ item.item_stock }}</td>
+                            <td>
+                                {% if item.item_stock >= 100 %}
+                                    <span style="color: green;">{{ item.item_stock }}</span>
+                                {% elif item.item_stock == 70 %}
+                                    <span style="color: orange;">{{ item.item_stock }}</span>
+                                {% else %}
+                                    <span style="color: red;">{{ item.item_stock }}</span>
+                                {% endif %}
+                            </td>
                             <td>Rp {{ item.item_price|floatformat:0|intcomma }}</td>
                         </tr>
                     {% empty %}

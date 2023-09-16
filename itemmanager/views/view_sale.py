@@ -4,7 +4,7 @@ from django.forms.formsets import formset_factory
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.views.generic.detail import DetailView
 
 from baseapp.decorators import admin_required
@@ -126,6 +126,31 @@ class SaleDetailView(TemplateView):
             raise Http404
         context = self.get_context_data(sale=sale)
         return render(request, self.template_name, context)
+    
+
+def calculate_total_revenue(sales):
+    total_revenue = 0
+    for sale in sales:
+        sale_items = SaleItem.objects.filter(sale=sale)
+        total_revenue += sum(item.sale_price for item in sale_items)
+    return total_revenue
+
+class SaleListViewWithTotal(ListView):
+    model = Sale
+    template_name = 'sale_list_with_total.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Fetch all sales
+        sales = context['object_list']
+
+        # Calculate the total revenue for all sales
+        total_revenue = calculate_total_revenue(sales)
+
+        context['total_revenue'] = total_revenue
+        return context
+
 
 
 class SaleDeleteView(TemplateView):
