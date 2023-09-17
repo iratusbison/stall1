@@ -135,20 +135,35 @@ def calculate_total_revenue(sales):
         total_revenue += sum(item.sale_price for item in sale_items)
     return total_revenue
 
+from django.db.models import Sum
+from django.db.models.functions import ExtractMonth
+
 class SaleListViewWithTotal(ListView):
     model = Sale
     template_name = 'sale_list_with_total.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+
         # Fetch all sales
         sales = context['object_list']
 
         # Calculate the total revenue for all sales
-        total_revenue = calculate_total_revenue(sales)
-
+        total_revenue = sum(s.revenue for s in sales)
         context['total_revenue'] = total_revenue
+
+        # Calculate revenue by month
+        revenue_by_month = {}
+        for sale in sales:
+            month = sale.date_created.month
+            revenue = sale.revenue
+
+            if month in revenue_by_month:
+                revenue_by_month[month] += revenue
+            else:
+                revenue_by_month[month] = revenue
+
+        context['revenue_by_month'] = revenue_by_month
         return context
 
 

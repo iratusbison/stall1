@@ -22,7 +22,7 @@ class Sale(models.Model):
 
     @property
     def revenue(self):
-        from . import SaleItem
+        from itemmanager.models.saleitem import SaleItem
         profit = SaleItem.objects.sale_total_revenue(sale=self)
         return profit
 
