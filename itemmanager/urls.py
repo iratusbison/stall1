@@ -7,7 +7,8 @@ from itemmanager.views.view_sale import SaleListView, SaleNewView, SaleDetailVie
 
 urlpatterns = [
     path('pricelist/', PricelistView.as_view() , name='pricelist'),
-    path('items/new/', ItemNewView.as_view(), name='item_new'),
+    path('new_item/', ItemNewView.as_view(), name='new_item'),
+    #path('items/new/', ItemNewView.as_view(), name='item_new'),
     path('items/<int:pk>/', ItemDetailView.as_view(), name='item_detail'),
     path('items/<int:pk>/edit', ItemEditView.as_view(), name='item_edit'),
     path('items/<int:pk>/delete', ItemDeleteView.as_view(), name='item_delete'),

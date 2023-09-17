@@ -73,27 +73,25 @@ class ItemDetailView(TemplateView):
 
 
 class ItemNewView(TemplateView):
-    model = Item
-    template_name = 'item_edit.html'
+    template_name = 'new_item.html'
 
-   # #
     def post(self, request, *args, **kwargs):
         form = ItemForm(request.POST, request.FILES)
         if form.is_valid():
-            item = form.save(commit=False)
-            item.save()
+            item = form.save()
             notice = "Item %s was successfully created" % item.item_name
-            messages.success(request, notice, extra_tags='green rounded')    
-            return redirect('item_detail', pk=item.pk)
+            messages.success(request, notice, extra_tags='green rounded')
+            return redirect('pricelist')
         else:
-            context = {'form': form, 'active_tab': 'item'}
+            # Handle form validation errors
+            context = {'form': form}
             return render(request, self.template_name, context)
 
-    ##
     def get(self, request, *args, **kwargs):
         form = ItemForm()
-        context = {'form': form, 'active_tab': 'item'}
+        context = {'form': form}
         return render(request, self.template_name, context)
+
 
 
 class ItemEditView(TemplateView):

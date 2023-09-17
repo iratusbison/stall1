@@ -28,7 +28,7 @@
                 </div>
                 <div class="row">
                     {% if request.session.ts_user.is_admin %}
-                    <a class="btn-small white waves-effect black-text" style="margin-left: 1rem" href="{% url 'item_new' %}">
+                    <a class="btn-small white waves-effect black-text" style="margin-left: 1rem" href="{% url 'new_item' %}">
                         + Add item
                     </a>
                     {% endif %}
@@ -53,7 +53,7 @@
                                     <span style="color: red;">{{ item.item_stock }}</span>
                                 {% endif %}
                             </td>
-                            <td>Rp {{ item.item_price|floatformat:0|intcomma }}</td>
+                            <td>₹ {{ item.item_price|floatformat:0|intcomma }}</td>
                         </tr>
                     {% empty %}
                         <tr>

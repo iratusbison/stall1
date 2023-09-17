@@ -34,7 +34,7 @@
                         <div class="input-field">
                             <input name="{{ form.item_price.html_name }}" id="{{ form.item_price.id_for_label }}" type="number" step="0.01" class="validate" value="{{ form.item_price.value|default:'' }}">
                             <small class="red">{{ form.item_price.errors }}</small>
-                            <label for="{{ form.item_price.id_for_label }}">Item price (Rp)</label>
+                            <label for="{{ form.item_price.id_for_label }}">Item price (₹)</label>
                         </div>
                         <div class="input-field">
                             <textarea id="{{ form.description.id_for_label }}" class="materialize-textarea" name="{{ form.description.html_name }}">{{ form.description.value|default:'' }}</textarea>

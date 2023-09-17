@@ -46,12 +46,12 @@
                             <tr>
                                 <td>{{ restockitem.item.item_name }}</td>
                                 <td style="text-align: right">x {{ restockitem.restock_item_amount }}</td>
-                                <td style="text-align: right">Rp {{ restockitem.restock_item_total_cost|floatformat:0|intcomma }}</td>
+                                <td style="text-align: right">₹ {{ restockitem.restock_item_total_cost|floatformat:0|intcomma }}</td>
                             </tr>
                             {% endfor %}
                             <tr style="border-top: solid thin #aaa">
                                 <th style="text-align: right" colspan="2">Total cost</th>
-                                <th style="text-align: right">Rp {{ restock.total_cost|floatformat:0|intcomma }}</th>
+                                <th style="text-align: right">₹ {{ restock.total_cost|floatformat:0|intcomma }}</th>
                             </tr>
                         </table>
                     </div>
