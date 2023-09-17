@@ -1,7 +1,6 @@
-{% extends "core/dashboard.html" %}  {# Extend the base template #}
-{% load humanize %}  {# Load the humanize template tag library for formatting numbers #}
-{% load custom_filters %}
-{% block dashboard_content %}  {# Define the content block for the dashboard #}
+{% extends "core/dashboard.html" %}
+{% load humanize %}
+{% block dashboard_content %}
 <div class="row">
     <div class="col s12 m6">
         <h5>Total Revenue for All Sales:</h5>
@@ -9,7 +8,6 @@
             <tr>
                 <td>Total:</td>
                 <td style="text-align: left">Rp {{ total_revenue|floatformat:0|intcomma }}</td>
-                {# Display the total revenue, formatted as currency #}
             </tr>
         </table>
     </div>
@@ -23,18 +21,82 @@
                 <th> Month (in Number) </th>
                 <th>Total Revenue</th>
             </tr>
-            
+
             {% for month, revenue in revenue_by_month.items %}
             <tr>
                 <td>{{ month }}</td>
                 <td style="text-align: left">Rp {{ revenue|floatformat:0|intcomma }}</td>
             </tr>
-        {% endfor %}
+            {% endfor %}
         </table>
     </div>
 </div>
 
-
-
+<div class="row">
+    <div class="col s12 m6">
+        <h5>Revenue Chart:</h5>
+        <canvas id="revenueChart" width="400" height="200"></canvas>
+    </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    var chartData = {
+    
+        labels: [{% for month, revenue in revenue_by_month.items %}"{{ month }}"{% if not forloop.last %}, {% endif %}{% endfor %}],
+        datasets: [
+            {
+                label: 'Total Revenue',
+                data: [{% for month, revenue in revenue_by_month.items %}{{ revenue }}{% if not forloop.last %}, {% endif %}{% endfor %}],
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',  
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)', 
+                'rgba(75, 192, 192, 0.2)', 
+                'rgba(153, 102, 255, 0.2)' 
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)'
+            ],
+                borderWidth: 1
+            }
+        ]
+    };
+    </script>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var ctx = document.getElementById('revenueChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    callback: function (value, index, values) {
+                        return 'Rp ' + value.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true
+                }
+            }
+        }
+    });
+});
+</script>
+
+
+
+
 {% endblock dashboard_content %}
