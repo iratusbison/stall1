@@ -164,6 +164,20 @@ class SaleListViewWithTotal(ListView):
                 revenue_by_month[month] = revenue
 
         context['revenue_by_month'] = revenue_by_month
+        
+                 # Calculate revenue by day
+        revenue_by_day = {}
+        for sale in sales:
+            day = sale.date_created.day
+            revenue = sale.revenue
+
+            if day in revenue_by_day:
+                revenue_by_day[day] += revenue
+            else:
+                revenue_by_day[day] = revenue
+
+        context['revenue_by_day'] = revenue_by_day
+        
         return context
 
 
